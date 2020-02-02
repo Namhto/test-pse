@@ -38,48 +38,48 @@ class MowerTest {
     @Test
     void turnMowerToRightShouldSucceed() {
         Mower mower = new Mower(new Position(3, 5), NORTH, new Position(10, 15));
-        assertThat(mower.move(TURN_RIGHT).getPositionAndOrientation()).isEqualTo("3 5 E");
-        assertThat(mower.move(TURN_RIGHT).getPositionAndOrientation()).isEqualTo("3 5 S");
-        assertThat(mower.move(TURN_RIGHT).getPositionAndOrientation()).isEqualTo("3 5 W");
-        assertThat(mower.move(TURN_RIGHT).getPositionAndOrientation()).isEqualTo("3 5 N");
+        assertThat(mower.execute(TURN_RIGHT).getPositionAndOrientation()).isEqualTo("3 5 E");
+        assertThat(mower.execute(TURN_RIGHT).getPositionAndOrientation()).isEqualTo("3 5 S");
+        assertThat(mower.execute(TURN_RIGHT).getPositionAndOrientation()).isEqualTo("3 5 W");
+        assertThat(mower.execute(TURN_RIGHT).getPositionAndOrientation()).isEqualTo("3 5 N");
     }
 
     @Test
     void turnMowerToLeftShouldSucceed() {
         Mower mower = new Mower(new Position(3, 5), SOUTH, new Position(10, 15));
-        assertThat(mower.move(TURN_LEFT).getPositionAndOrientation()).isEqualTo("3 5 E");
-        assertThat(mower.move(TURN_LEFT).getPositionAndOrientation()).isEqualTo("3 5 N");
-        assertThat(mower.move(TURN_LEFT).getPositionAndOrientation()).isEqualTo("3 5 W");
-        assertThat(mower.move(TURN_LEFT).getPositionAndOrientation()).isEqualTo("3 5 S");
+        assertThat(mower.execute(TURN_LEFT).getPositionAndOrientation()).isEqualTo("3 5 E");
+        assertThat(mower.execute(TURN_LEFT).getPositionAndOrientation()).isEqualTo("3 5 N");
+        assertThat(mower.execute(TURN_LEFT).getPositionAndOrientation()).isEqualTo("3 5 W");
+        assertThat(mower.execute(TURN_LEFT).getPositionAndOrientation()).isEqualTo("3 5 S");
     }
 
     @Test
     void moveMowerForwardShouldSucceed() {
         Mower mower = new Mower(new Position(0, 0), NORTH, new Position(10, 15));
-        assertThat(mower.move(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("0 1 N");
-        assertThat(mower.move(TURN_RIGHT).move(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("1 1 E");
-        assertThat(mower.move(TURN_RIGHT).move(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("1 0 S");
+        assertThat(mower.execute(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("0 1 N");
+        assertThat(mower.execute(TURN_RIGHT).execute(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("1 1 E");
+        assertThat(mower.execute(TURN_RIGHT).execute(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("1 0 S");
     }
 
     @Test
     void moveMowerForwardToBeOnLimitShouldSucceed() {
         Mower mower = new Mower(new Position(0, 1), SOUTH, new Position(10, 15));
-        assertThat(mower.move(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("0 0 S");
+        assertThat(mower.execute(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("0 0 S");
         Mower mower1 = new Mower(new Position(9, 15), EAST, new Position(10, 15));
-        assertThat(mower1.move(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("10 15 E");
+        assertThat(mower1.execute(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("10 15 E");
     }
 
     @Test
     void moveMowerForwardShouldFailBecauseItWouldBeBeforeSouthWestLimit() {
         Mower mower = new Mower(new Position(0, 0), SOUTH, new Position(10, 15));
-        assertThat(mower.move(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("0 0 S");
-        assertThat(mower.move(TURN_RIGHT).move(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("0 0 W");
+        assertThat(mower.execute(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("0 0 S");
+        assertThat(mower.execute(TURN_RIGHT).execute(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("0 0 W");
     }
 
     @Test
     void moveMowerForwardShouldFailBecauseItWouldBeAfterNorthEastLimit() {
         Mower mower = new Mower(new Position(10, 15), NORTH, new Position(10, 15));
-        assertThat(mower.move(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("10 15 N");
-        assertThat(mower.move(TURN_RIGHT).move(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("10 15 E");
+        assertThat(mower.execute(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("10 15 N");
+        assertThat(mower.execute(TURN_RIGHT).execute(MOVE_FORWARD).getPositionAndOrientation()).isEqualTo("10 15 E");
     }
 }

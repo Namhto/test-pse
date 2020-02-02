@@ -9,11 +9,11 @@ import static com.namhto.mowitnow.ErrorCode.*;
 
 public class ConfigurationLoader {
 
-    private static Configuration configuration = new Configuration();
+    private Configuration configuration = new Configuration();
 
-    private static MowerConfiguration currentParsedConfiguration;
+    private MowerConfiguration currentParsedConfiguration;
 
-    public static Configuration load(String configurationFilePath) {
+    public Configuration load(String configurationFilePath) {
         try {
             List<String> lines = Files.readAllLines(Paths.get(configurationFilePath));
             load(lines);
@@ -23,15 +23,15 @@ public class ConfigurationLoader {
         }
     }
 
-    private static void load(List<String> lines) {
+    private void load(List<String> lines) {
         if (lines.size() == 0) {
             throw new MowItNowException(CONFIGURATION_EMPTY_CONFIGURATION_FILE);
         }
         configuration.northEastLimitPosition = parseNorthEastLimitPosition(lines.get(0));
-        lines.subList(1, lines.size()).forEach(ConfigurationLoader::parseMowerConfiguration);
+        lines.subList(1, lines.size()).forEach(this::parseMowerConfiguration);
     }
 
-    private static Position parseNorthEastLimitPosition(String line) {
+    private Position parseNorthEastLimitPosition(String line) {
         String[] parts = line.split(" ");
         if (parts.length != 2) {
             throw new MowItNowException(CONFIGURATION_INVALID_NORTH_EAST_LIMIT_POSITION.withData(line));
@@ -43,7 +43,7 @@ public class ConfigurationLoader {
         }
     }
 
-    private static void parseMowerConfiguration(String line) {
+    private void parseMowerConfiguration(String line) {
         if (currentParsedConfiguration == null) {
             parseInitialPositionAndOrientation(line);
         } else {
@@ -53,7 +53,7 @@ public class ConfigurationLoader {
         }
     }
 
-    private static void parseInitialPositionAndOrientation(String line) {
+    private void parseInitialPositionAndOrientation(String line) {
         String[] parts = line.split(" ");
         if (parts.length != 3) {
             throw new MowItNowException(CONFIGURATION_INVALID_INITIAL_POSITION_AND_ORIENTATION.withData(line));
@@ -67,7 +67,7 @@ public class ConfigurationLoader {
         }
     }
 
-    private static void parseInstructions(String line) {
+    private void parseInstructions(String line) {
         for (char c : line.toCharArray()) {
             currentParsedConfiguration.instructions.add(Instruction.get(c));
         }

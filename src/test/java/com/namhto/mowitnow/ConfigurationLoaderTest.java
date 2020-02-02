@@ -19,56 +19,56 @@ class ConfigurationLoaderTest {
     @Test
     void loadShouldFailBecauseEmptyConfigurationFile() throws URISyntaxException {
         String path = new File(getClass().getClassLoader().getResource("empty-config.txt").toURI()).getAbsolutePath();
-        MowItNowException exception = catchThrowableOfType(() -> ConfigurationLoader.load(path), MowItNowException.class);
+        MowItNowException exception = catchThrowableOfType(() -> new ConfigurationLoader().load(path), MowItNowException.class);
         assertThat(exception.getCode()).isEqualTo(CONFIGURATION_EMPTY_CONFIGURATION_FILE);
     }
 
     @Test
     void loadShouldFailBecauseInvalidNorthEastLimitPosition() throws URISyntaxException {
         String path = new File(getClass().getClassLoader().getResource("bad-first-line-config.txt").toURI()).getAbsolutePath();
-        MowItNowException exception = catchThrowableOfType(() -> ConfigurationLoader.load(path), MowItNowException.class);
+        MowItNowException exception = catchThrowableOfType(() -> new ConfigurationLoader().load(path), MowItNowException.class);
         assertThat(exception.getCode()).isEqualTo(CONFIGURATION_INVALID_NORTH_EAST_LIMIT_POSITION);
     }
 
     @Test
     void loadShouldFailBecauseNorthEastLimitPositionIsNotANumber() throws URISyntaxException {
         String path = new File(getClass().getClassLoader().getResource("first-line-not-number-config.txt").toURI()).getAbsolutePath();
-        MowItNowException exception = catchThrowableOfType(() -> ConfigurationLoader.load(path), MowItNowException.class);
+        MowItNowException exception = catchThrowableOfType(() -> new ConfigurationLoader().load(path), MowItNowException.class);
         assertThat(exception.getCode()).isEqualTo(CONFIGURATION_POSITION_NOT_A_NUMBER);
     }
 
     @Test
     void loadShouldFailBecauseBadInitialPositionAndOrientation() throws URISyntaxException {
         String path = new File(getClass().getClassLoader().getResource("bad-position-and-orientation-config.txt").toURI()).getAbsolutePath();
-        MowItNowException exception = catchThrowableOfType(() -> ConfigurationLoader.load(path), MowItNowException.class);
+        MowItNowException exception = catchThrowableOfType(() -> new ConfigurationLoader().load(path), MowItNowException.class);
         assertThat(exception.getCode()).isEqualTo(CONFIGURATION_INVALID_INITIAL_POSITION_AND_ORIENTATION);
     }
 
     @Test
     void loadShouldFailBecausePositionIsNotANumber() throws URISyntaxException {
         String path = new File(getClass().getClassLoader().getResource("position-not-number-config.txt").toURI()).getAbsolutePath();
-        MowItNowException exception = catchThrowableOfType(() -> ConfigurationLoader.load(path), MowItNowException.class);
+        MowItNowException exception = catchThrowableOfType(() -> new ConfigurationLoader().load(path), MowItNowException.class);
         assertThat(exception.getCode()).isEqualTo(CONFIGURATION_POSITION_NOT_A_NUMBER);
     }
 
     @Test
     void loadShouldFailBecauseInvalidOrientation() throws URISyntaxException {
         String path = new File(getClass().getClassLoader().getResource("invalid-orientation-config.txt").toURI()).getAbsolutePath();
-        MowItNowException exception = catchThrowableOfType(() -> ConfigurationLoader.load(path), MowItNowException.class);
+        MowItNowException exception = catchThrowableOfType(() -> new ConfigurationLoader().load(path), MowItNowException.class);
         assertThat(exception.getCode()).isEqualTo(CONFIGURATION_INVALID_ORIENTATION);
     }
 
     @Test
     void loadShouldFailBecauseInvalidInstruction() throws URISyntaxException {
         String path = new File(getClass().getClassLoader().getResource("invalid-instruction-config.txt").toURI()).getAbsolutePath();
-        MowItNowException exception = catchThrowableOfType(() -> ConfigurationLoader.load(path), MowItNowException.class);
+        MowItNowException exception = catchThrowableOfType(() -> new ConfigurationLoader().load(path), MowItNowException.class);
         assertThat(exception.getCode()).isEqualTo(CONFIGURATION_INVALID_INSTRUCTION);
     }
 
     @Test
     void loadShouldSucceed() throws URISyntaxException {
         String path = new File(getClass().getClassLoader().getResource("config.txt").toURI()).getAbsolutePath();
-        Configuration configuration = ConfigurationLoader.load(path);
+        Configuration configuration = new ConfigurationLoader().load(path);
         assertThat(configuration.northEastLimitPosition).isEqualTo(new Position(5, 5));
         assertThat(configuration.mowerConfigurations).hasSize(2);
         assertMowerConfiguration(

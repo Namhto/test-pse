@@ -31,7 +31,7 @@ public class Mower {
         return String.format("%d %d %s", position.x, position.y, orientation);
     };
 
-    public Mower move(Instruction instruction) {
+    public Mower execute(Instruction instruction) {
         switch (instruction) {
             case MOVE_FORWARD:
                 moveForward();
