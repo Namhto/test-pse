@@ -4,14 +4,23 @@ public class Mower {
 
     private Position position;
 
+    private Position northEastLimitPosition;
+
     private Orientation orientation;
 
-    public Mower(Position position, Orientation orientation) {
+    public Mower(Position position, Orientation orientation, Position northEastLimitPosition) {
         if (orientation == null) {
             throw new IllegalArgumentException("Initial orientation must be provided");
         }
+        if (northEastLimitPosition == null) {
+            throw new IllegalArgumentException("North-east limit position must be provided");
+        }
+        if (position.isGreaterThan(northEastLimitPosition)) {
+            throw new IllegalArgumentException("Position can not be outside of the terrain limits");
+        }
         this.position = position;
         this.orientation = orientation;
+        this.northEastLimitPosition = northEastLimitPosition;
     }
 
     public String getPositionAndOrientation() {

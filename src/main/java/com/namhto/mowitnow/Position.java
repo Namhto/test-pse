@@ -28,4 +28,8 @@ public class Position {
     public int hashCode() {
         return Objects.hash(x, y);
     }
+
+    public boolean isGreaterThan(Position position) {
+        return x > position.x || y > position.y;
+    }
 }
