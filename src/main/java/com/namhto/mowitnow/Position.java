@@ -16,6 +16,14 @@ public class Position {
         this.y = y;
     }
 
+    public Position(Position position) {
+        if (position == null) {
+            throw new IllegalArgumentException("Position to copy must not be null");
+        }
+        x = position.x;
+        y = position.y;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

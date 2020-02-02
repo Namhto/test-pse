@@ -8,6 +8,8 @@ public class Mower {
 
     private Orientation orientation;
 
+    private Position southWestLimit = new Position(0, 0);
+
     public Mower(Position position, Orientation orientation, Position northEastLimitPosition) {
         if (orientation == null) {
             throw new IllegalArgumentException("Initial orientation must be provided");
@@ -52,6 +54,28 @@ public class Mower {
     }
 
     private void moveForward() {
-        // TODO: Add upper right corner coordinates for check here
+        Position nextPosition = new Position(position);
+        switch (orientation) {
+            case NORTH:
+                nextPosition.y += 1;
+                break;
+            case SOUTH:
+                nextPosition.y -=1;
+                break;
+            case EAST:
+                nextPosition.x += 1;
+                break;
+            case WEST:
+                nextPosition.x -= 1;
+                break;
+        }
+        if (isInTerrainLimits(nextPosition)) {
+            position = nextPosition;
+        }
+    }
+
+    private boolean isInTerrainLimits(Position position) {
+        return (position.isGreaterThan(southWestLimit) || position.equals(southWestLimit)) &&
+                (northEastLimitPosition.isGreaterThan(position) || northEastLimitPosition.equals(position));
     }
 }

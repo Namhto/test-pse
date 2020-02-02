@@ -14,6 +14,11 @@ class PositionTest {
     }
 
     @Test
+    void creatingPositionFromANullPositionShouldFail() {
+        assertThatThrownBy(() -> new Position(null)).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     void isGreaterThanIsTrue() {
         assertThat(new Position(10, 10).isGreaterThan(new Position(5, 10))).isTrue();
         assertThat(new Position(10, 10).isGreaterThan(new Position(10, 5))).isTrue();
