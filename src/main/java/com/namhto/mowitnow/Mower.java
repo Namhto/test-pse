@@ -23,4 +23,32 @@ public class Mower {
     public String getPositionAndOrientation() {
         return String.format("%d %d %s", x, y, orientation);
     };
+
+    public Mower move(Instruction instruction) {
+        switch (instruction) {
+            case A:
+                moveForward();
+                return this;
+            case D:
+                turnRight();
+                return this;
+            case G:
+                turnLeft();
+                return this;
+            default:
+                return this;
+        }
+    }
+
+    private void turnLeft() {
+        orientation = orientation.minus90Degrees();
+    }
+
+    private void turnRight() {
+        orientation = orientation.plus90Degrees();
+    }
+
+    private void moveForward() {
+        // TODO: Add upper right corner coordinates for check here
+    }
 }

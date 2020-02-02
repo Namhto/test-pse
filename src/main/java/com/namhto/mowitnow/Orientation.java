@@ -16,4 +16,34 @@ public enum Orientation {
     public String toString() {
         return value;
     }
+
+    public Orientation plus90Degrees() {
+        switch (this) {
+            case NORTH:
+                return EAST;
+            case EAST:
+                return SOUTH;
+            case SOUTH:
+                return WEST;
+            case WEST:
+                return NORTH;
+            default:
+                return this;
+        }
+    }
+
+    public Orientation minus90Degrees() {
+        switch (this) {
+            case NORTH:
+                return WEST;
+            case WEST:
+                return SOUTH;
+            case SOUTH:
+                return EAST;
+            case EAST:
+                return NORTH;
+            default:
+                return this;
+        }
+    }
 }
