@@ -1,5 +1,9 @@
 package com.namhto.mowitnow;
 
+import java.util.Arrays;
+
+import static com.namhto.mowitnow.ErrorCode.CONFIGURATION_INVALID_ORIENTATION;
+
 public enum Orientation {
     NORTH("N"),
     EAST("E"),
@@ -10,6 +14,13 @@ public enum Orientation {
 
     Orientation(String value) {
         this.value = value;
+    }
+
+    public static Orientation get(String value) {
+        return Arrays.stream(values())
+                .filter(orientation -> orientation.value.equals(value))
+                .findFirst()
+                .orElseThrow(() -> new MowItNowException(CONFIGURATION_INVALID_ORIENTATION.withData(value)));
     }
 
     @Override

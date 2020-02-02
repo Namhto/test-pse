@@ -31,13 +31,13 @@ public class Mower {
 
     public Mower move(Instruction instruction) {
         switch (instruction) {
-            case A:
+            case MOVE_FORWARD:
                 moveForward();
                 return this;
-            case D:
+            case TURN_RIGHT:
                 turnRight();
                 return this;
-            case G:
+            case TURN_LEFT:
                 turnLeft();
                 return this;
             default:

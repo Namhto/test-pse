@@ -1,0 +1,5 @@
+5 5 some other invalid stuff
+1 2 N
+GAGAGAGAA
+3 3 E
+AADAADADDA
