@@ -2,6 +2,8 @@ package com.namhto.mowitnow;
 
 import java.util.Objects;
 
+import static com.namhto.mowitnow.ErrorCode.INVALID_POSITION;
+
 public class Position {
 
     public int x;
@@ -10,7 +12,7 @@ public class Position {
 
     public Position(int x, int y) {
         if (x < 0 || y < 0) {
-            throw new IllegalArgumentException(String.format("Position is invalid (x: %d, y: %d)", x, y));
+            throw new MowItNowException(INVALID_POSITION.withData(String.format("x: %d, y: %d", x, y)));
         }
         this.x = x;
         this.y = y;
@@ -18,7 +20,7 @@ public class Position {
 
     public Position(Position position) {
         if (position == null) {
-            throw new IllegalArgumentException("Position to copy must not be null");
+            throw new MowItNowException(INVALID_POSITION.withData("position to copy is null"));
         }
         x = position.x;
         y = position.y;
@@ -35,6 +37,14 @@ public class Position {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 
     public boolean isGreaterThan(Position position) {

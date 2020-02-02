@@ -2,20 +2,23 @@ package com.namhto.mowitnow;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static com.namhto.mowitnow.ErrorCode.*;
+import static org.assertj.core.api.Assertions.*;
 
 class PositionTest {
 
     @Test
     void creatingPositionWithNegativeCoordinatesShouldFail() {
-        assertThatThrownBy(() -> new Position(-1, 5)).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> new Position(3, -2)).isInstanceOf(IllegalArgumentException.class);
+        MowItNowException exception = catchThrowableOfType(() -> new Position(-1, 5), MowItNowException.class);
+        assertThat(exception.getCode()).isEqualTo(INVALID_POSITION);
+        MowItNowException exception1 = catchThrowableOfType(() -> new Position(3, -2), MowItNowException.class);
+        assertThat(exception1.getCode()).isEqualTo(INVALID_POSITION);
     }
 
     @Test
     void creatingPositionFromANullPositionShouldFail() {
-        assertThatThrownBy(() -> new Position(null)).isInstanceOf(IllegalArgumentException.class);
+        MowItNowException exception = catchThrowableOfType(() -> new Position(null), MowItNowException.class);
+        assertThat(exception.getCode()).isEqualTo(INVALID_POSITION);
     }
 
     @Test

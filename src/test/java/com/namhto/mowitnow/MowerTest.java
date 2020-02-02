@@ -2,10 +2,10 @@ package com.namhto.mowitnow;
 
 import org.junit.jupiter.api.Test;
 
+import static com.namhto.mowitnow.ErrorCode.POSITION_OUTSIDE_LIMITS;
 import static com.namhto.mowitnow.Instruction.*;
 import static com.namhto.mowitnow.Orientation.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 class MowerTest {
 
@@ -29,10 +29,10 @@ class MowerTest {
 
     @Test
     void creatingAMowerWithPositionOutsideLimitsShouldFail() {
-        assertThatThrownBy(() -> new Mower(new Position(3, 7), WEST, new Position(5, 5)))
-                .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> new Mower(new Position(8, 2), WEST, new Position(5, 5)))
-                .isInstanceOf(IllegalArgumentException.class);
+        MowItNowException exception = catchThrowableOfType(() -> new Mower(new Position(3, 7), WEST, new Position(5, 5)), MowItNowException.class);
+        assertThat(exception.getCode()).isEqualTo(POSITION_OUTSIDE_LIMITS);
+        MowItNowException exception1 = catchThrowableOfType(() -> new Mower(new Position(8, 2), WEST, new Position(5, 5)), MowItNowException.class);
+        assertThat(exception1.getCode()).isEqualTo(POSITION_OUTSIDE_LIMITS);
     }
 
     @Test

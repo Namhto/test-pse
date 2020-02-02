@@ -8,6 +8,9 @@ public enum ErrorCode {
     CONFIGURATION_INVALID_INITIAL_POSITION_AND_ORIENTATION("Invalid initial position and orientation"),
     CONFIGURATION_INVALID_ORIENTATION("Invalid orientation"),
     CONFIGURATION_INVALID_INSTRUCTION("Invalid instruction"),
+
+    INVALID_POSITION("Invalid position with negative coordinates"),
+    POSITION_OUTSIDE_LIMITS("Position can not be outside of the terrain limits"),
     ;
 
     private String value;

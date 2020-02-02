@@ -1,5 +1,7 @@
 package com.namhto.mowitnow;
 
+import static com.namhto.mowitnow.ErrorCode.POSITION_OUTSIDE_LIMITS;
+
 public class Mower {
 
     private Position position;
@@ -18,7 +20,7 @@ public class Mower {
             throw new IllegalArgumentException("North-east limit position must be provided");
         }
         if (position.isGreaterThan(northEastLimitPosition)) {
-            throw new IllegalArgumentException("Position can not be outside of the terrain limits");
+            throw new MowItNowException(POSITION_OUTSIDE_LIMITS.withData(position));
         }
         this.position = position;
         this.orientation = orientation;
